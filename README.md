@@ -1,8 +1,6 @@
 # Serverless Cloudwatch Logs To S3 Exporter
 AWS Serverless Lambda function that sends log data from CloudWatch Logs and S3.
-
-
-![Fig : Serverless AWS KMS Sentry](https://raw.githubusercontent.com/miztiik/serverless-kms-sentry/master/images/serverless-kms-sentry.png)
+![Fig : Serverless Cloudwatch Logs To S3 Exporter](https://raw.githubusercontent.com/miztiik/serverless-cloudwatch-logs-exporter/master/images/serverless-cloudwatch-logs-exporter.png)
 
 #### Follow this article in [Youtube](https://www.youtube.com/watch?v=OHXDPDc1qEE&list=PLxzKY3wu0_FKok5gI1v4g4S-g-PLaW9YD&index=20)
 
