@@ -8,8 +8,8 @@ AWS Serverless Lambda function that sends log data from CloudWatch Logs and S3.
     We will need the following pre-requisites to successfully complete this activity,
     - `S3 Bucket` - Update the bucket with the policy mentioned below
     - IAM Role `serverless-cw-to-s3-exporter-role` - [Get Help for setting up IAM Role](https://www.youtube.com/watch?v=5g0Cuq-qKA0&list=PLxzKY3wu0_FLaF9Xzpyd9p4zRCikkD9lE&index=11)
-        - _Managed Permissions_: `AWSLambdaBasicExecutionRole` - To allow Lambda to log events & Write to S3 Buckets
-        - _Inline Policy_: `AllowCloudWatchLogsExport` mentioned below
+        - _Managed Permissions_: `AWSLambdaExecute` - To allow Lambda to log events & Write to S3 Buckets
+        - _Inline Policy_: `ListBucketPolicy` mentioned below
     - CloudWatch Log Group Name[s]
 
 1. ### S3 Bucket Policy
@@ -45,35 +45,27 @@ AWS Serverless Lambda function that sends log data from CloudWatch Logs and S3.
     ```
 1. ### Lambda IAM Policy
 
-    Create a new IAM Policy `AllowCloudWatchLogsExport` with the following  configuration. _If you want, restrict it only to the logs of your interests, in resources section_.
-
+    Create a new IAM Policy `ListBucketPolicy` with the following  configuration. _If you want, restrict it only to the buckets of your interests, in resources section_.
+    **A policy to allow the script to verify valid S3 buckets**
     ```json
     {
         "Version": "2012-10-17",
         "Statement": [
             {
                 "Effect": "Allow",
-                "Action": "s3:GetObject",
-                "Resource": [
-                    "arn:aws:s3:::YOUR-BUCKET-NAME/*"
-                ]
-            },
-            {
-                "Effect": "Allow",
                 "Action": [
-                    "logs:CreateExportTask",
-                    "logs:DescribeExportTasks",
-                    "logs:DescribeLogGroups"
+                    "s3:ListBucket",
+                    "s3:HeadBucket"
                 ],
-                "Resource": "arn:aws:logs:YOUR-REGION:*:*"
+                "Resource": "*"
             }
         ]
     }
     ```
+
 1. ## Configure Lambda Function - `Serverless CloudWatch Logs To S3 Exporter`
     - Provide the function name & choose `Python 3.7`
     - Attach the IAM Role - `serverless-cw-to-s3-exporter-role`
-    - The python script is written(_and tested_) in `Python 3.7`.
     - [Get code here](https://www.youtube.com/c/valaxytechnologies/about)
     - `Save` the lambda function
 1. ## Configure Lambda Triggers
